@@ -1,0 +1,65 @@
+@page
+@model PlacementTracker.Pages.Applications.CreateModel
+
+<h1>Add Application</h1>
+
+<form method ="post">
+    <div>
+        <label asp-for="JobApplication.CompanyName"></label>
+        <input asp-for="JobApplication.CompanyName" />
+        <span asp-validation-for="JobApplication.CompanyName"></span>
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.Position"></label>
+        <input asp-for="JobApplication.Position" />
+        <span asp-validation-for="JobApplication.Position"></span>
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.Status"></label>
+        <select asp-for="JobApplication.Status" asp-items="Html.GetEnumSelectList<ApplicationStatus>()"></select>
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.Location"></label>
+        <input asp-for="JobApplication.Location" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.Link"></label>
+        <input asp-for="JobApplication.Link" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.ApplicationDate"></label>
+        <input asp-for="JobApplication.ApplicationDate" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.Deadline"></label>
+        <input asp-for="JobApplication.Deadline" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.InterviewDate"></label>
+        <input asp-for="JobApplication.InterviewDate" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.ReminderDate"></label>
+        <input asp-for="JobApplication.ReminderDate" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.ReminderNote"></label>
+        <input asp-for="JobApplication.ReminderNote" />
+    </div>
+
+    <div>
+        <label asp-for="JobApplication.Notes"></label>
+        <textarea asp-for="JobApplication.Notes"></textarea>
+    </div>
+
+    <button type="submit">Save application</button>
+</form>

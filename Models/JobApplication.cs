@@ -5,7 +5,9 @@ namespace PlacementTracker.Models;
 public class JobApplication
 {
     public int Id { get; set; }
+    [Required]
     public string CompanyName { get; set; } = "";
+    [Required]
     public string Position { get; set; } = "";
     public string? Location { get; set; }
     public string? Link { get; set; }

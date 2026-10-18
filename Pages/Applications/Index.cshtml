@@ -1,0 +1,28 @@
+@page
+@model PlacementTracker.Pages.Applications.IndexModel
+
+<h1>Applications</h1>
+
+<a asp-page="Create">Add New Application</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Status</th>
+            <th>Deadline</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var app in Model.JobApplications)
+        {
+            <tr>
+                <td>@app.CompanyName</td>
+                <td>@app.Position</td>
+                <td>@app.Status</td>
+                <td>@app.Deadline?.ToString("d MMM yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

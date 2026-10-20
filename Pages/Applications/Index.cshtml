@@ -12,6 +12,7 @@
             <th>Position</th>
             <th>Status</th>
             <th>Deadline</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,8 @@
                 <td>@app.Position</td>
                 <td>@app.Status</td>
                 <td>@app.Deadline?.ToString("d MMM yyyy")</td>
+                <td><a asp-page="Edit" asp-route-id="@app.Id">Edit</a></td>
+                <td><a asp-page="Delete" asp-route-id="@app.Id">Delete</a></td>
             </tr>
         }
     </tbody>

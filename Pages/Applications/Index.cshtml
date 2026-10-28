@@ -21,8 +21,14 @@
             <tr>
                 <td>@app.CompanyName</td>
                 <td>@app.Position</td>
-                <td>@app.Status</td>
-                <td>@app.Deadline?.ToString("d MMM yyyy")</td>
+                <td><span class="badge @app.Status.ToString().ToLower()">@app.Status</span></td>
+                <td>
+                    @app.Deadline?.ToString("d MMM yyyy")
+                    @if (app.DeadlineLabel != "")
+                    {
+                        <span class="@app.DeadlineClass">@app.DeadlineLabel</span>
+                    }
+                </td>
                 <td><a asp-page="Edit" asp-route-id="@app.Id">Edit</a></td>
                 <td><a asp-page="Delete" asp-route-id="@app.Id">Delete</a></td>
             </tr>

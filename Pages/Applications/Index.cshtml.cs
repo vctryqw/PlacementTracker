@@ -18,6 +18,9 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        JobApplications = await _db.JobApplications.ToListAsync();
+        JobApplications = await _db.JobApplications
+        .OrderBy(a => a.Deadline == null)
+        .ThenBy(a => a.Deadline)
+        .ToListAsync();
     }
 }

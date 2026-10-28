@@ -5,6 +5,26 @@
 
 <a asp-page="Create">Add New Application</a>
 
+<form method="get" class="filters">
+    <label asp-for="CompanyFilter">Company</label>
+    <select asp-for="CompanyFilter" asp-items="new SelectList(Model.Companies)">
+        <option value="">All companies</option>
+    </select>
+
+    <label asp-for="StatusFilter">Status</label>
+    <select asp-for="StatusFilter" asp-items="Html.GetEnumSelectList<ApplicationStatus>()">
+        <option value="">All statuses</option>
+    </select>
+
+    <button type="submit">Filter</button>
+    <a asp-page="Index">Clear</a>
+</form>
+
+@if (Model.JobApplications.Count == 0)
+{
+    <p>No applications match these filters.</p>
+}
+
 <table>
     <thead>
         <tr>

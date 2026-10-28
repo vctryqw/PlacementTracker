@@ -56,3 +56,11 @@ body {
 .deadline.soon    { background: #fef3c7; color: #92400e; }
 .deadline.urgent  { background: #fee2e2; color: #b91c1c; font-weight: bold; }
 .deadline.passed  { background: #e5e7eb; color: #4b5563; }
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+}

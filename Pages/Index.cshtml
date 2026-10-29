@@ -1,10 +1,58 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Dashboard</h1>
+
+<section class="box">
+    <h2>Reminders</h2>
+
+    @if (Model.RemindersDue.Count == 0)
+    {
+        <p>No reminders due today.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var app in Model.RemindersDue)
+            {
+                <li>
+                    <strong>@app.CompanyName</strong> – @app.Position
+                    <br />
+                    @(app.ReminderNote ?? "Check on this application")
+
+                    <form method="post" asp-page-handler="Dismiss" asp-route-id="@app.Id" class="inline-form">
+                        <button type="submit">Done</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+</section>
+
+<section class="box">
+    <h2>Deadlines in the next 2 weeks</h2>
+
+    @if (Model.UpcomingDeadlines.Count == 0)
+    {
+        <p>Nothing due in the next 14 days.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var app in Model.UpcomingDeadlines)
+            {
+                <li>
+                    <a asp-page="/Applications/Edit" asp-route-id="@app.Id">
+                        <strong>@app.CompanyName</strong> – @app.Position
+                    </a>
+                    <br />
+                    @app.Deadline?.ToString("ddd d MMM")
+                    <span class="@app.DeadlineClass">@app.DeadlineLabel</span>
+                </li>
+            }
+        </ul>
+    }
+</section>

@@ -32,6 +32,10 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        if (JobApplication.ReminderDate > JobApplication.Deadline)
+    {
+        ModelState.AddModelError("JobApplication.ReminderDate", "Set the reminder on or before the deadline.");
+    }
         if (!ModelState.IsValid)
         {
             return Page();

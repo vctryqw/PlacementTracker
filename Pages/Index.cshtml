@@ -5,6 +5,56 @@
 }
 
 <h1>Dashboard</h1>
+<section class="stats">
+    <div class="stat">
+        <span class="stat-number">@Model.Total</span>
+        <span class="stat-label">Total applications</span>
+    </div>
+    <div class="stat">
+        <span class="stat-number">@Model.Active</span>
+        <span class="stat-label">Active</span>
+    </div>
+    <div class="stat">
+        <span class="stat-number">@Model.InterviewsSoon</span>
+        <span class="stat-label">Interviews in the next 7 days</span>
+    </div>
+    <div class="stat">
+        <span class="stat-number">@Model.Offers</span>
+        <span class="stat-label">Offers</span>
+    </div>
+</section>
+
+<section class="board">
+    @foreach (var status in Model.BoardColumns)
+    {
+        var appsInColumn = Model.AllApplications.Where(a => a.Status == status).ToList();
+
+        <div class="column">
+            <h2>@status <span class="count">@appsInColumn.Count</span></h2>
+
+            @foreach (var app in appsInColumn)
+            {
+                <a class="card" asp-page="/Applications/Edit" asp-route-id="@app.Id">
+                    <div class="card-top">
+                        <strong>@app.CompanyName</strong>
+                        <span class="badge @app.Status.ToString().ToLower()">@app.Status</span>
+                    </div>
+                    <div>@app.Position</div>
+                    <div class="card-date">
+                        @if (app.ApplicationDate != null)
+                        {
+                            <span>Applied @app.ApplicationDate.Value.ToString("d MMM yyyy")</span>
+                        }
+                        @if (app.DeadlineLabel != "")
+                        {
+                            <span class="@app.DeadlineClass">@app.DeadlineLabel</span>
+                        }
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</section>
 
 <section class="box">
     <h2>Reminders</h2>

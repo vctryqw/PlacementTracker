@@ -18,10 +18,38 @@ public class IndexModel : PageModel
     public List<JobApplication> RemindersDue { get; set; } = new();
     public List<JobApplication> UpcomingDeadlines { get; set; } = new();
 
+    public List<JobApplication> AllApplications { get; set; } = new();
+
+    public int Total { get; set; }
+    public int Active { get; set; }
+    public int InterviewsSoon { get; set; }
+    public int Offers { get; set; }
+
+    public List<ApplicationStatus> BoardColumns { get; set; } = new()
+    {
+        ApplicationStatus.Interested,
+        ApplicationStatus.Applied,
+        ApplicationStatus.Screening,
+        ApplicationStatus.Interview,
+        ApplicationStatus.Offer
+    };
+
     public async Task OnGetAsync()
     {
-
         var all = await _db.JobApplications.ToListAsync();
+        AllApplications = all;
+
+        Total = all.Count;
+
+        Active = all.Count(a => a.Status == ApplicationStatus.Applied
+                             || a.Status == ApplicationStatus.Screening
+                             || a.Status == ApplicationStatus.Interview);
+
+        InterviewsSoon = all.Count(a => a.InterviewDate != null
+                                     && a.InterviewDate.Value.Date >= DateTime.Today
+                                     && a.InterviewDate.Value.Date <= DateTime.Today.AddDays(7));
+
+        Offers = all.Count(a => a.Status == ApplicationStatus.Offer);
 
         RemindersDue = all
             .Where(a => a.ReminderDate != null
